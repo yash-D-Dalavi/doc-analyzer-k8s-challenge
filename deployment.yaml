@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doc-analyzer-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: doc-analyzer
+  template:
+    metadata:
+      labels:
+        app: doc-analyzer
+    spec:
+      containers:
+      - name: doc-analyzer
+        image: doc-analyzer-app:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
