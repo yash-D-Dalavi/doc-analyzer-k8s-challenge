@@ -13,8 +13,21 @@ spec:
         app: doc-analyzer
     spec:
       containers:
-      - name: doc-analyzer
-        image: doc-analyzer-app:v1
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8000
+        - name: doc-analyzer
+          image: doc-analyzer-app:v2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
